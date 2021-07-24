@@ -9,9 +9,6 @@ import (
 
 func main() {
 
-	daysStudied := 0
-
-	fmt.Println(daysStudied)
 	addSpace()
 	greetUser()
 
