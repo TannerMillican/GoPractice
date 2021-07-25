@@ -7,10 +7,66 @@ import (
 	"strconv"
 )
 
+type HighLevelTopic struct {
+	name         string
+	tutorialLink string
+}
+
+type IntermediateTopic struct {
+	name         string
+	tutorialLink string
+}
+
 func main() {
 
+	var HighLevelTopic1 HighLevelTopic
+	var HighLevelTopic2 HighLevelTopic
+	var HighLevelTopic3 HighLevelTopic
+	var HighLevelTopic4 HighLevelTopic
+	var HighLevelTopic5 HighLevelTopic
+
+	HighLevelTopic1.name = "Variables"
+	HighLevelTopic1.tutorialLink = "https://www.tutorialspoint.com/go/go_variables.htm"
+
+	HighLevelTopic2.name = "Data Types"
+	HighLevelTopic2.tutorialLink = "https://www.tutorialspoint.com/go/go_data_types.htm"
+
+	HighLevelTopic3.name = "Functions"
+	HighLevelTopic3.tutorialLink = "https://www.tutorialspoint.com/go/go_functions.htm"
+
+	HighLevelTopic4.name = "Arrays"
+	HighLevelTopic4.tutorialLink = "https://www.tutorialspoint.com/go/go_arrays.htm"
+
+	HighLevelTopic5.name = "Loops"
+	HighLevelTopic5.tutorialLink = "https://www.tutorialspoint.com/go/go_loops.htm"
+
+	highLevelTopicsArray := [5]HighLevelTopic{HighLevelTopic1, HighLevelTopic2, HighLevelTopic3, HighLevelTopic4, HighLevelTopic5}
+
+	var ItermediateTopic1 IntermediateTopic
+	var ItermediateTopic2 IntermediateTopic
+	var ItermediateTopic3 IntermediateTopic
+	var ItermediateTopic4 IntermediateTopic
+	var ItermediateTopic5 IntermediateTopic
+
+	ItermediateTopic1.name = "Pointers"
+	ItermediateTopic1.tutorialLink = "https://www.tutorialspoint.com/go/go_pointers.htm"
+
+	ItermediateTopic2.name = "Structs"
+	ItermediateTopic2.tutorialLink = "https://www.tutorialspoint.com/go/go_structures.htm"
+
+	ItermediateTopic3.name = "Maps"
+	ItermediateTopic3.tutorialLink = "https://www.tutorialspoint.com/go/go_maps.htm"
+
+	ItermediateTopic4.name = "Recursion"
+	ItermediateTopic4.tutorialLink = "https://www.tutorialspoint.com/go/go_recursion.htm"
+
+	ItermediateTopic5.name = "Iterfaces"
+	ItermediateTopic5.tutorialLink = "https://www.tutorialspoint.com/go/go_interfaces.htm"
+
+	intermediateTopicsArray := [5]IntermediateTopic{ItermediateTopic1, ItermediateTopic2, ItermediateTopic3, ItermediateTopic4, ItermediateTopic5}
+
 	addSpace()
-	greetUser()
+	greetUser(highLevelTopicsArray, intermediateTopicsArray)
 
 }
 
@@ -18,7 +74,7 @@ func addSpace() {
 	fmt.Println(" ")
 }
 
-func greetUser() {
+func greetUser(highLevelTopicsArray [5]HighLevelTopic, intermediateTopicsArray [5]IntermediateTopic) {
 
 	greetingsScanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("Hello, how long have you been working with Go?")
@@ -32,11 +88,12 @@ func greetUser() {
 		addSpace()
 		fmt.Printf("Hello world! I've worked with Go for %d days", timeInput)
 		addSpace()
-		askAboutLastHighLevelTopic()
+		askAboutLastHighLevelTopic(highLevelTopicsArray, intermediateTopicsArray)
 	case timeInput == 365:
 		addSpace()
 		fmt.Printf("Hello world! I've worked with Go for 1 year!")
-		askAboutLastHighLevelTopic()
+		addSpace()
+		askAboutLastHighLevelTopic(highLevelTopicsArray, intermediateTopicsArray)
 	case timeInput%365 == 0 && timeInput != 365:
 		addSpace()
 		fmt.Printf("Hello world! I've worked with Go for %d years!!", timeInput/365)
@@ -44,7 +101,7 @@ func greetUser() {
 	case timeInput > 365 && timeInput < 730:
 		addSpace()
 		fmt.Printf("Hello world! I've worked with Go for 1 year and %d day(s)!!", timeInput%365)
-		askAboutLastIntermediateTopic()
+		askAboutLastIntermediateTopic(intermediateTopicsArray)
 	default:
 		addSpace()
 		fmt.Printf("Hello world! I've worked with Go for %d years and %d day(s)!!", timeInput/365, timeInput%365)
@@ -54,7 +111,7 @@ func greetUser() {
 	addSpace()
 }
 
-func askAboutLastHighLevelTopic() {
+func askAboutLastHighLevelTopic(highLevelTopicsArray [5]HighLevelTopic, intermediateTopicsArray [5]IntermediateTopic) {
 
 	lastHigheLevelTopicScanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("What was the last high level topic you studied?")
@@ -66,17 +123,17 @@ func askAboutLastHighLevelTopic() {
 
 	if lastHighLevelTopic == "topics" {
 		addSpace()
-		printHighLevelTopics()
+		printHighLevelTopics(highLevelTopicsArray)
 		addSpace()
-		askAboutStudyingHighLevelTopics()
+		askAboutStudyingHighLevelTopics(highLevelTopicsArray, intermediateTopicsArray)
 	} else {
 		addSpace()
-		askAboutStudyingHighLevelTopics()
+		askAboutStudyingHighLevelTopics(highLevelTopicsArray, intermediateTopicsArray)
 	}
 
 }
 
-func askAboutLastIntermediateTopic() {
+func askAboutLastIntermediateTopic(intermediateTopicsArray [5]IntermediateTopic) {
 
 	lastIntermediateTopicScanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("What was the last intermediate topic you studied?")
@@ -88,17 +145,17 @@ func askAboutLastIntermediateTopic() {
 
 	if lastItermediateTopic == "topics" {
 		addSpace()
-		printIntermediateTopics()
+		printIntermediateTopics(intermediateTopicsArray)
 		addSpace()
-		askAboutStudyingIntermediateTopics()
+		askAboutStudyingIntermediateTopics(intermediateTopicsArray)
 	} else {
 		addSpace()
-		askAboutStudyingIntermediateTopics()
+		askAboutStudyingIntermediateTopics(intermediateTopicsArray)
 	}
 
 }
 
-func askAboutStudyingHighLevelTopics() {
+func askAboutStudyingHighLevelTopics(highLevelTopicsArray [5]HighLevelTopic, intermediateTopicsArray [5]IntermediateTopic) {
 	studyHighLevelScanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("Would you like to study a high level topic today? (Y/N)")
 	studyHighLevelScanner.Scan()
@@ -108,19 +165,19 @@ func askAboutStudyingHighLevelTopics() {
 	if studyHighScannerYN == "Y" || studyHighScannerYN == "y" {
 		addSpace()
 		fmt.Println("Which high level topic would you like to study today?")
-		printHighLevelTopics()
-		chooseHighLevelTopic()
+		printHighLevelTopics(highLevelTopicsArray)
+		chooseHighLevelTopic(highLevelTopicsArray)
 	} else if studyHighScannerYN == "N" || studyHighScannerYN == "n" {
 		addSpace()
-		askAboutStudyingIntermediateTopics()
+		askAboutStudyingIntermediateTopics(intermediateTopicsArray)
 	} else {
 		addSpace()
 		fmt.Println("Please enter Y or N")
-		askAboutStudyingHighLevelTopics()
+		askAboutStudyingHighLevelTopics(highLevelTopicsArray, intermediateTopicsArray)
 	}
 }
 
-func askAboutStudyingIntermediateTopics() {
+func askAboutStudyingIntermediateTopics(intermediateTopicsArray [5]IntermediateTopic) {
 	studyIntermediateScanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("Would you like to study an intermediate topic today? (Y/N)")
 	studyIntermediateScanner.Scan()
@@ -130,72 +187,68 @@ func askAboutStudyingIntermediateTopics() {
 	if studyIntermediateScannerYN == "Y" || studyIntermediateScannerYN == "y" {
 		addSpace()
 		fmt.Println("Which intermediate topic would you like to study today?")
-		printIntermediateTopics()
-		chooseIntermediateTopic()
+		printIntermediateTopics(intermediateTopicsArray)
+		chooseIntermediateTopic(intermediateTopicsArray)
 	} else if studyIntermediateScannerYN == "N" || studyIntermediateScannerYN == "n" {
 		addSpace()
 		fmt.Println("Happy studying!!")
 	} else {
 		addSpace()
 		fmt.Println("Please enter Y or N")
-		askAboutStudyingIntermediateTopics()
+		askAboutStudyingIntermediateTopics(intermediateTopicsArray)
 	}
 }
 
-func chooseHighLevelTopic() {
-	highLevelTopicLinks := [5]string{"https://www.tutorialspoint.com/go/go_variables.htm", "https://www.tutorialspoint.com/go/go_data_types.htm", "https://www.tutorialspoint.com/go/go_functions.htm", "https://www.tutorialspoint.com/go/go_arrays.htm", "https://www.tutorialspoint.com/go/go_loops.htm"}
-
-	highLevelTopics := [5]string{"variables", "data types", "functions", "arrays", "loops"}
+func chooseHighLevelTopic(highLevelTopicsArray [5]HighLevelTopic) {
 
 	chooseHighLevelTopicScanner := bufio.NewScanner(os.Stdin)
-	fmt.Println("Please enter your choice without any capital letters:")
+	fmt.Println("Please capitalize the first letter of your choice.")
+	addSpace()
 
 	chooseHighLevelTopicScanner.Scan()
 
 	chosenHighLevelTopic := chooseHighLevelTopicScanner.Text()
 
-	for i := 0; i < len(highLevelTopics); i++ {
-		if chosenHighLevelTopic == highLevelTopics[i] {
+	for i := 0; i < len(highLevelTopicsArray); i++ {
+		if chosenHighLevelTopic == highLevelTopicsArray[i].name {
+			addSpace()
 			fmt.Println("Here is a link to a tutorial website for your selected topic:")
-			fmt.Println(highLevelTopicLinks[i])
+			fmt.Println(highLevelTopicsArray[i].tutorialLink)
 			fmt.Println("Happy studying!!")
 		}
 	}
 }
 
-func chooseIntermediateTopic() {
-	intermediateTopicLinks := [5]string{"https://www.tutorialspoint.com/go/go_pointers.htm", "https://www.tutorialspoint.com/go/go_structures.htm", "https://www.tutorialspoint.com/go/go_maps.htm", "https://www.tutorialspoint.com/go/go_recursion.htm", "https://www.tutorialspoint.com/go/go_interfaces.htm"}
-
-	intermediateTopics := [5]string{"Pointers", "Structs", "Maps", "Recursion", "Iterfaces"}
+func chooseIntermediateTopic(intermediateTopicsArray [5]IntermediateTopic) {
 
 	chooseIntermediateTopicScanner := bufio.NewScanner(os.Stdin)
-	fmt.Println("Please enter your choice without any capital letters:")
+	fmt.Println("Please capitalize the first letter of your choice.")
+	addSpace()
 
 	chooseIntermediateTopicScanner.Scan()
 
 	chosenHighLevelTopic := chooseIntermediateTopicScanner.Text()
 
-	for i := 0; i < len(intermediateTopics); i++ {
-		if chosenHighLevelTopic == intermediateTopics[i] {
+	for i := 0; i < len(intermediateTopicsArray); i++ {
+		if chosenHighLevelTopic == intermediateTopicsArray[i].name {
+			addSpace()
 			fmt.Println("Here is a link to a tutorial website for your selected topic:")
-			fmt.Println(intermediateTopicLinks[i])
+			fmt.Println(intermediateTopicsArray[i].tutorialLink)
 			fmt.Println("Happy studying!!")
 		}
 	}
 }
 
-func printHighLevelTopics() {
-	highLevelTopics := [5]string{"Variables", "Data Types", "Functions", "Arrays", "Loops"}
+func printHighLevelTopics(highLevelTopicsArray [5]HighLevelTopic) {
 
-	for i := 0; i < len(highLevelTopics); i++ {
-		fmt.Println(highLevelTopics[i])
+	for i := 0; i < len(highLevelTopicsArray); i++ {
+		fmt.Println(highLevelTopicsArray[i].name)
 	}
 }
 
-func printIntermediateTopics() {
-	intermediateTopics := [5]string{"Pointers", "Structs", "Maps", "Recursion", "Iterfaces"}
+func printIntermediateTopics(intermediateTopicsArray [5]IntermediateTopic) {
 
-	for i := 0; i < len(intermediateTopics); i++ {
-		fmt.Println(intermediateTopics[i])
+	for i := 0; i < len(intermediateTopicsArray); i++ {
+		fmt.Println(intermediateTopicsArray[i].name)
 	}
 }
